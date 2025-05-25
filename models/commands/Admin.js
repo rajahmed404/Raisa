@@ -130,13 +130,13 @@ module.exports.run = ({ event, api }) => api.sendMessage(`     ⊰᯽⊱┈─�
 ◎ ══════ ❈ ══════ ◎
 ╭─╮ 
   🔥 
-╰─╯༊⋆⃝NAME👉𝗠𝗗 𝗝𝗨𝗕𝗔𝗘𝗗 𝗔𝗛𝗠𝗘𝗗 𝗝𝗢𝗬‣᭄𓆪 
+╰─╯༊⋆⃝NAME👉𝗠𝗜𝗦𝗦 𝗠𝗜𝗠‣᭄𓆪 
 ╭─╮ 
   🔥 
-╰─╯༊⋆⃝ADDRESS👉𝗝𝗔𝗠𝗔𝗟𝗣𝗨𝗥‣᭄𓆪 
+╰─╯༊⋆⃝ADDRESS👉𝗕𝗔𝗥𝗜𝗦𝗛𝗔𝗹‣᭄𓆪 
 ╭─╮ 
   🔥 
-╰─╯༊⋆⃝WHATS,APP👉 wa.me/+8801709045888‣᭄𓆪
+╰─╯༊⋆⃝WHATS,APP👉 wa.me/+880নাই🐸‣᭄𓆪
 ╭─╮ 
   🔥 
 ╰─╯𝗥𝗘𝗟𝗔𝗧𝗜𝗢𝗡👉𝗦𝗜𝗡𝗚𝗟𝗘
@@ -144,14 +144,14 @@ module.exports.run = ({ event, api }) => api.sendMessage(`     ⊰᯽⊱┈─�
    BOT OWNER FB ID
 [ANY HELP CONTACT FB]
 
- ➷➷➷➷➷➷➷➷➷➷➷➷➷➷ https://www.facebook.com/joy.ahmed.122961
+ ➷➷➷➷➷➷➷➷➷➷➷➷➷➷ https://www.facebook.com/mim264
 
 ⊰᯽⊱┈──╌❊╌──┈⊰᯽⊱
 ┏•━•━•━ ◎ ━•━•━•┓
  ❂ 𝗕𝗢𝗧  𝗢𝗪𝗡𝗘𝗥 ❂
 ┗•━•━•━ ◎ ━•━•━•┛
 ╭────────────╮
-𝗠𝗗 𝗝𝗨𝗕𝗔𝗘𝗗 𝗔𝗛𝗠𝗘𝗗 𝗝𝗢𝗬
+𝗠𝗜𝗦𝗦 𝗠𝗜𝗠
 ────────────╯
 ╰────────────╯
 `, event.threadID, event.messageID);
