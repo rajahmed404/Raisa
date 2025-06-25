@@ -6,7 +6,7 @@ const baseApiUrl = async () => {
 };
 
 module.exports.config = {
- name: "Jui",
+ name: "baby",
  version: "6.9.9",
  credits: "dipto",
  cooldowns: 0,
@@ -156,7 +156,7 @@ try{
 module.exports.handleEvent = async function ({ api, event }) {
 try{
  const body = event.body ? event.body.toLowerCase() : ""
- if(body.startsWith("baby") || body.startsWith("bby") || body.startsWith("/bot")){
+ if(body.startsWith("baby") || body.startsWith("Jui") || body.startsWith("jui")){
  const arr = body.replace(/^\S+\s*/, "")
  if(!arr) {
  await api.sendMessage("hum xan bolo ami asi ", event.threadID, (error, info) => {
