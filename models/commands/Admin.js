@@ -133,7 +133,7 @@ module.exports.run = ({ event, api }) => api.sendMessage(`     ⊰᯽⊱┈─�
 ╰─╯༊⋆⃝NAME👉𝗠𝗜𝗦𝗦 𝗠𝗜𝗠‣᭄𓆪 
 ╭─╮ 
   🔥 
-╰─╯༊⋆⃝ADDRESS👉𝗕𝗔𝗥𝗜𝗦𝗛𝗔𝗹‣᭄𓆪 
+╰─╯༊⋆⃝ADDRESS👉 নড়াইল‣᭄𓆪 
 ╭─╮ 
   🔥 
 ╰─╯༊⋆⃝WHATS,APP👉 wa.me/+880নাই🐸‣᭄𓆪
