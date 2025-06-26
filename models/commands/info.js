@@ -24,7 +24,7 @@ const time = process.uptime(),
 const moment = require("moment-timezone");
 var juswa = moment.tz("Asia/Dhaka").format("『D/MM/YYYY』 【HH:mm:ss】");
 var link =                                     
-["https://i.imgur.com/ugDo0DS.jpeg"];
+["https://i.postimg.cc/jd3nh8Fv/Messenger-creation-A411-B8-DF-83-AB-49-D7-BFD3-E5-A6745-DFD74.jpg"];
 var callback = () => api.sendMessage({body:` 𝐀𝐃𝐌𝐈𝐍 𝐀𝐍𝐃 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 
 
 
@@ -34,7 +34,7 @@ var callback = () => api.sendMessage({body:` 𝐀𝐃𝐌𝐈𝐍 𝐀𝐍𝐃 �
 
 𝐅𝐀𝐂𝐄𝐁𝐎𝐎𝐊 : https://www.facebook.com/mim264
 
-𝐀𝐃𝐃𝐑𝐄𝐒𝐒 : 𝗕𝗔𝗥𝗜𝗦𝗛𝗔𝗟
+𝐀𝐃𝐃𝐑𝐄𝐒𝐒 : নড়াইল 
 
 𝐎𝐓𝐇𝐄𝐑 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐍𝐓𝐈𝐎𝐍
 
