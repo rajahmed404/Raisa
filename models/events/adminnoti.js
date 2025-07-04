@@ -136,7 +136,7 @@ module.exports.run = async function({ event, api, Threads, Users }) {
         const kickedName = await Users.getNameUser(kickedID);
         const adminName = await Users.getNameUser(adminID);
 
-        api.sendMessage(`[ GROUP UPDATE ]\n❯ ${kickedName} (${kickedID}) \nগ্রুপের শান্তির জন্য তোকে কিক মারা হলো\nতুই গ্রুপে থাকার যোগ্য না আবাল\n has been removed by ${adminName} (${adminID})`, threadID);
+        api.sendMessage(`[ GROUP UPDATE ]\n❯ ${kickedName} (${kickedID}) \nরাগ করে না বাবু গ্রুপে শান্তির জন্য তোমাকে কিক মারা হলো \n\n তুই এই গ্রুপে থাকার যোগ্য না আবাল 🤣\n has been removed by ${adminName} (${adminID})`, threadID);
         break;
       }
     }
