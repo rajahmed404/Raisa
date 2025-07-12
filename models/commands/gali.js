@@ -1,4 +1,4 @@
-module.exports = {
+module.exports.config = {
   config: {
     name: "gali",
     aliases: [],
@@ -6,10 +6,19 @@ module.exports = {
     author: "Joy",
     countDown: 5,
     role: 0,
-    shortDescription: "গালি দেয় নামসহ",
-    longDescription: "reply বা UID mention করলে ইউজারের নামসহ গালি দিবে",
+    shortDescription: {
+      en: "Gives a random abusive message with name",
+      bn: "গালি দেয় নামসহ"
+    },
+    longDescription: {
+      en: "Mentions or replies to a user with a randomly selected abusive message including their name",
+      bn: "reply বা UID mention করলে ইউজারের নামসহ গালি দিবে"
+    },
     category: "fun",
-    guide: "{pn} [reply বা uid]"
+    guide: {
+      en: "{pn} [reply to user or mention UID]",
+      bn: "{pn} [reply বা uid mention করুন]"
+    }
   },
 
   onStart: async function ({ api, event, args, Users }) {
@@ -28,10 +37,11 @@ module.exports = {
     const randomGali = galiList[Math.floor(Math.random() * galiList.length)];
 
     let uid;
-    if (event.type === "message_reply") {
+    if (event.type === "message_reply" && event.messageReply.senderID) {
       uid = event.messageReply.senderID;
     } else if (args[0]) {
-      uid = args[0].replace(/@|[^\d]/g, "");
+      const mentionMatch = args[0].match(/\d+/);
+      uid = mentionMatch ? mentionMatch[0] : event.senderID;
     } else {
       uid = event.senderID;
     }
@@ -40,13 +50,15 @@ module.exports = {
     try {
       const userInfo = await api.getUserInfo(uid);
       name = userInfo[uid]?.name || "User";
-    } catch (e) {}
+    } catch (e) {
+      console.error("Failed to fetch user info:", e);
+    }
 
     const msg = `${name}, --${randomGali}`;
 
     return api.sendMessage({
       body: msg,
       mentions: [{ id: uid, tag: name }]
-    }, event.threadID);
+    }, event.threadID, event.messageID);
   }
 };
