@@ -1,5 +1,4 @@
-module.exports.config = {
-  config: {
+module.exports.config: {
     name: "gali",
     aliases: [],
     version: "1.0",
