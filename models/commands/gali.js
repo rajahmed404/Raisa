@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "gali",
   version: "1.0",
-  hasPermssion: 0,
+  hasPermssion: 2,
   credits: "Joy",
   description: "গালি দেয় নামসহ",
   commandCategory: "fun",
