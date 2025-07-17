@@ -21,17 +21,31 @@ function saveLocalDB(db) {
   fs.writeFileSync(localDbPath, JSON.stringify(db, null, 2), "utf-8");
 }
 
+async function getUserName(Users, userID) {
+  // যেকোন Merai version এর জন্য safe ইউজার নাম বের করার ফাংশন
+  if (typeof Users.getData === "function") {
+    const data = await Users.getData(userID);
+    return data && data.name ? data.name : "unknown";
+  }
+  if (typeof Users.getName === "function") {
+    return await Users.getName(userID);
+  }
+  return "unknown";
+}
+
 module.exports.config = {
   name: "teach",
   version: "1.0",
-  credits: "Joy",
+  author: "dipto",
   cooldowns: 0,
   hasPermssion: 0,
   description: "Local + remote teach system with .teach command",
   commandCategory: "chat",
-  usePrefix: true,
-  prefix: true,
-  usages: `.teach [trigger] - [reply1], [reply2], [reply3]...`,
+  usages: ".teach [trigger] - [reply1], [reply2], [reply3]...",
+};
+
+module.exports.onStart = async function() {
+  // খালি রাখো, GoatBot / Merai bot এর জন্য
 };
 
 module.exports.run = async function ({ api, event, args, Users }) {
@@ -68,7 +82,9 @@ module.exports.run = async function ({ api, event, args, Users }) {
 
     // Save remotely
     const re = await axios.get(`${link}?teach=${encodeURIComponent(trigger)}&reply=${encodeURIComponent(replies.join(','))}&senderID=${uid}`);
-    const name = await Users.getName(re.data.teacher) || "unknown";
+
+    // Get username safely
+    const name = await getUserName(Users, re.data.teacher);
 
     return api.sendMessage(
       `✅ Successfully taught new replies for "${trigger}"\nTeacher: ${name}\nReplies: ${replies.join(", ")}`,
