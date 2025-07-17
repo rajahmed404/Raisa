@@ -3,53 +3,60 @@ const axios = require("axios");
 module.exports.config = {
   name: "uid",
   version: "1.0",
-  hasPermssion: 0,
-  credits: "Joy-Ahmed",
-  description: "Get UID from profile link, mention, reply or self",
-  commandCategory: "info",
-  usages: "[tag/reply/link]",
-  cooldowns: 5
+  author: "Joy-Ahmed",
+  description: "Get Facebook UID",
+  usage: "[reply | mention | link | username]",
+  cooldowns: 5,
+  role: 0,
+  category: "info"
 };
 
 module.exports.run = async function ({ api, event, args }) {
-  const regExCheckURL = /^(http|https):\/\/[^ "]+$/;
+  let uid;
 
-  // If replied to a message
+  // ✅ 1. Reply check
   if (event.type === "message_reply") {
-    return api.sendMessage(event.messageReply.senderID.toString(), event.threadID, event.messageID);
+    uid = event.messageReply.senderID;
   }
 
-  // If profile link is given
-  if (args[0] && regExCheckURL.test(args[0])) {
-    let msg = "";
-    for (const link of args) {
-      try {
-        const res = await axios.get(`https://api.leanhtruong.net/fb/finduid?url=${encodeURIComponent(link)}`);
-        const uid = res.data?.uid || "Not Found";
-        msg += `${link} => ${uid}\n`;
-      } catch (e) {
-        msg += `${link} => ERROR: ${e.message}\n`;
-      }
+  // ✅ 2. Mention check
+  else if (Object.keys(event.mentions).length > 0) {
+    uid = Object.keys(event.mentions)[0];
+  }
+
+  // ✅ 3. Facebook link check
+  else if (args[0]?.includes("facebook.com")) {
+    try {
+      const url = args[0].trim();
+      const username = url
+        .replace(/(https?:\/\/)?(www\.)?facebook\.com\//, "")
+        .split(/[/?#]/)[0];
+
+      const res = await axios.get(
+        `https://graph.facebook.com/${username}?access_token=10220324386567830|c78f3856f5c9e15424348d20a90b0d5c`
+      );
+      uid = res.data.id;
+    } catch (e) {
+      return api.sendMessage("❌ ভুল লিংক বা প্রাইভেট প্রোফাইল। UID পাওয়া যায়নি।", event.threadID, event.messageID);
     }
-    return api.sendMessage(msg, event.threadID, event.messageID);
   }
 
-  // If tagged someone
-  const mentions = event.mentions;
-  if (Object.keys(mentions).length > 0) {
-    let msg = "";
-    for (const id in mentions) {
-      const name = mentions[id].replace("@", "");
-      msg += `${name}: ${id}\n`;
+  // ✅ 4. Username or ID from args
+  else if (args[0]) {
+    try {
+      const res = await axios.get(
+        `https://graph.facebook.com/${args[0]}?access_token=10220324386567830|c78f3856f5c9e15424348d20a90b0d5c`
+      );
+      uid = res.data.id;
+    } catch (e) {
+      return api.sendMessage("❌ UID পাওয়া যায়নি। ইউজারনেম/আইডি ভুল কিনা চেক করুন।", event.threadID, event.messageID);
     }
-    return api.sendMessage(msg, event.threadID, event.messageID);
   }
 
-  // Default: return sender UID
-  if (!args[0]) {
-    return api.sendMessage(event.senderID.toString(), event.threadID, event.messageID);
+  // ✅ 5. Default: show sender's UID
+  else {
+    uid = event.senderID;
   }
 
-  // If wrong usage
-  return api.sendMessage("⚠️ Please tag someone, reply to a message, or give a valid profile link.", event.threadID, event.messageID);
+  return api.sendMessage(`📌 Facebook UID: ${uid}`, event.threadID, event.messageID);
 };
