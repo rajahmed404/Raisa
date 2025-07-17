@@ -2,59 +2,52 @@ const axios = require("axios");
 
 module.exports.config = {
   name: "uid",
-  version: "1.0",
-  author: "Joy-Ahmed",
-  role: 0,
-  description: "Facebook UID বের করুন",
-  usage: "[reply | mention | link]",
-  cooldowns: 5,
-  category: "info"
+  version: "1.0.0",
+  permission: 0,
+  credits: "Joy-Ahmed",
+  description: "ফেসবুক UID বের করুন",
+  prefix: true,
+  category: "tools",
+  usages: "[mention | reply | link]",
+  cooldowns: 5
 };
 
-module.exports.run = async function ({ api, event, args }) {
-  const regExCheckURL = /^(http|https):\/\/[^ "]+$/;
-  let msg = "";
+module.exports.run = async ({ api, event, args }) => {
+  const mention = Object.keys(event.mentions || {});
+  const reply = event.messageReply;
+  let targetID;
 
-  // 1. Reply করলে
-  if (event.type === "message_reply") {
-    return api.sendMessage(`✅ UID: ${event.messageReply.senderID}`, event.threadID, event.messageID);
+  // যদি mention থাকে
+  if (mention.length > 0) {
+    targetID = mention[0];
   }
-
-  // 2. Mention করা হলে
-  if (Object.keys(event.mentions).length > 0) {
-    for (const id in event.mentions) {
-      msg += `👤 ${event.mentions[id].replace("@", "")} => UID: ${id}\n`;
+  // যদি reply থাকে
+  else if (reply) {
+    targetID = reply.senderID;
+  }
+  // যদি লিংক বা ইউজারনেম দেওয়া হয়
+  else if (args[0]) {
+    const input = args[0];
+    const match = input.match(/(?:facebook\.com\/)?(?:profile\.php\?id=)?([a-zA-Z0-9.]+)/);
+    
+    if (!match) {
+      return api.sendMessage("❌ সঠিক ফেসবুক প্রোফাইল লিংক দিন।", event.threadID, event.messageID);
     }
-    return api.sendMessage(msg, event.threadID, event.messageID);
-  }
 
-  // 3. Profile link দিলে
-  if (args[0] && regExCheckURL.test(args[0])) {
-    for (const link of args) {
-      try {
-        const username = link
-          .replace(/(https?:\/\/)?(www\.)?facebook\.com\//, "")
-          .split(/[/?#]/)[0];
+    const username = match[1];
 
-        const res = await axios.get(`https://graph.facebook.com/${username}?access_token=10220324386567830|c78f3856f5c9e15424348d20a90b0d5c`);
-        msg += `🔗 ${link} => UID: ${res.data.id}\n`;
-      } catch (e) {
-        msg += `❌ ${link} => ERROR: ${e.response?.data?.error?.message || "Invalid link"}\n`;
-      }
+    try {
+      const res = await axios.get(`https://graph.facebook.com/${username}?fields=id&access_token=350685531728|62f8ce9f74b12f84c123cc23437a4a32`);
+      const uid = res.data.id;
+      return api.sendMessage(`✅ ফেসবুক UID: ${uid}`, event.threadID, event.messageID);
+    } catch (err) {
+      return api.sendMessage("❌ UID বের করা যায়নি।", event.threadID, event.messageID);
     }
-    return api.sendMessage(msg, event.threadID, event.messageID);
+  }
+  // নিজে
+  else {
+    targetID = event.senderID;
   }
 
-  // 4. কিছু না দিলে নিজের UID
-  if (!args[0]) {
-    return api.sendMessage(`✅ আপনার UID: ${event.senderID}`, event.threadID, event.messageID);
-  }
-
-  // 5. যদি ইউজারনেম/আইডি দেওয়া হয়
-  try {
-    const res = await axios.get(`https://graph.facebook.com/${args[0]}?access_token=10220324386567830|c78f3856f5c9e15424348d20a90b0d5c`);
-    return api.sendMessage(`✅ UID of ${args[0]}: ${res.data.id}`, event.threadID, event.messageID);
-  } catch (e) {
-    return api.sendMessage("❌ ইউজারনেম/লিংক ভুল বা প্রাইভেট!", event.threadID, event.messageID);
-  }
+  return api.sendMessage(`✅ ফেসবুক UID: ${targetID}`, event.threadID, event.messageID);
 };
