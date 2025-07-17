@@ -36,7 +36,7 @@ async function getUserName(Users, userID) {
 module.exports.config = {
   name: "teach",
   version: "1.0",
-  author: "dipto",
+  author: "Joy",
   cooldowns: 0,
   hasPermssion: 0,
   description: "Local + remote teach system with .teach command",
