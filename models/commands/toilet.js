@@ -1,7 +1,7 @@
 module.exports.config = {
   'name': "toilet",
   'version': "1.0.0",
-  'permission': 0x0,
+  'permission': 2,
   'credits': "Nazrul",
   'description': " ",
   'prefix': true,
