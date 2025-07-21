@@ -1,66 +1,48 @@
+const fs = require("fs-extra");
+const request = require("request");
+
 module.exports.config = {
-	name: "info",
-	version: "1.0.1", 
-	hasPermssion: 0,
-	credits: "JOY",
-	description: "Admin and Bot info.",
-	commandCategory: "Utility",
-	cooldowns: 1,
-	dependencies: 
-	{
-    	"request":"",
-    	"fs-extra":"",
-    	"axios":""
-  	}
+  name: "info",
+  version: "1.0.0",
+  permission: 0,
+  credits: "Joy Ahmed",
+  prefix: true,
+  description: "ব্যক্তিগত তথ্য বক্স",
+  category: "prefix",
+  usages: "",
+  cooldowns: 5,
 };
 
-module.exports.run = async function({ api, event }) {
-	const axios = global.nodemodule["axios"];
-	const request = global.nodemodule["request"];
-	const fs = global.nodemodule["fs-extra"];
+module.exports.run = async function ({ api, event }) {
+  const fbUID = "100080837633857";
+  const imgURL = `https://graph.facebook.com/${fbUID}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+  const imgPath = __dirname + "/cache/info.png";
 
-	const time = process.uptime(),
-		hours = Math.floor(time / (60 * 60)),
-		minutes = Math.floor((time % (60 * 60)) / 60),
-		seconds = Math.floor(time % 60);
+  const msg = `
+╭╼|━━━━━━━━━━━━━━|╾╮
+👧🏻 𝓜𝓲𝓼𝓼 𝓜𝓲𝓶 | 𝑴𝑰𝑺𝑺 𝑴𝑰𝑴
+🍒 পিঁচ্ছি মিঁম
+🧕🏻 ইসলাম | মেয়ে | বয়স: 𝟭𝟲+
+🎂 জন্মদিন: ০২ মার্চ ২০০৮
+📚 ছাত্র | 💔 অবিবাহিত
+❤️ রিলেশন: Single ☺️
+💌 ভালোবাসে: বিড়াল 🐱, বই 📚, গান 🎶
+🩸 রক্তের গ্রুপ: B+
+🧠 প্রিয় বিষয়: জীববিজ্ঞান
+🏠 ঠিকানা: লোহাগড়া, নড়াইল
+✉️ ইমেইল: ******@gmail.com
+📞 ফোন: wa.me/+88017********
+🔗 প্রোফাইল: fb.com/${fbUID}
+╰╼|━━━━━━━━━━━━━━|╾╯`;
 
-	const moment = require("moment-timezone");
-	var juswa = moment.tz("Asia/Dhaka").format("『D/MM/YYYY』 【HH:mm:ss】");
-
-	var link = ["https://i.postimg.cc/jd3nh8Fv/Messenger-creation-A411-B8-DF-83-AB-49-D7-BFD3-E5-A6745-DFD74.jpg"];
-
-	var callback = () => api.sendMessage({
-		body: ` 𝐀𝐃𝐌𝐈𝐍 𝐀𝐍𝐃 𝐁𝐎𝐓 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐓𝐈𝐎𝐍 
-
-
-ব্ঁট্ঁ না্ঁম্ঁ : ${global["জু্ঁই্ঁ"] || "Jui Bot"}
-
-ব্ঁট্ঁ এ্ঁড্ঁমি্ঁন্ঁ : রা্ঁই্ঁসা্ঁ আ্ঁক্তা্ঁর্ঁ মি্ঁম্ঁ
-
-ফে্ঁস্ঁবু্ঁক্ঁ লি্ঁংক্ঁ : https://www.facebook.com/mim264
-
-ঠি্ঁকা্ঁনা্ঁ : ন্ঁড়া্ঁই্ঁল্ঁ স্ঁদ্ঁর্ঁ থা্ঁনা্ঁ 
-
-𝐎𝐓𝐇𝐄𝐑 𝐈𝐍𝐅𝐎𝐑𝐌𝐀𝐍𝐓𝐈𝐎𝐍
-
-✧══════•❁❀❁•══════✧
-
-লে্ঁখা্ঁ প্ঁরা্ঁ : ${global["ক্লা্সঁ এ্ঁই্ঁট্ঁ"] || "ক্লাস এইট"}
-
-খে্ঁলা্ঁদু্ঁলা্ঁ : ফ্রী্ঁ ফা্ঁয়া্ঁর্ঁ 
-
-🥳𝐔𝐏𝐓𝐈𝐌𝐄🥳
-
-🌪️𝐓𝐨𝐝𝐚𝐲 𝐢𝐬🌪️ ☞︎︎︎☜︎︎︎✰ ${juswa} 
-
-⚡𝐁𝐨𝐭 𝐢𝐬 𝐑𝐮𝐧𝐧𝐢𝐧𝐠⚡ ${hours}:${minutes}:${seconds}.
-
-✅𝐓𝐡𝐚𝐧𝐤𝐬 𝐅𝐨𝐫 𝐔𝐬𝐢𝐧𝐠 ${global.config.BOTNAME || "This"} Bot🖤
-`,
-		attachment: fs.createReadStream(__dirname + "/cache/juswa.jpg")
-	}, event.threadID, () => fs.unlinkSync(__dirname + "/cache/juswa.jpg"));
-
-	return request(encodeURI(link[Math.floor(Math.random() * link.length)]))
-		.pipe(fs.createWriteStream(__dirname + "/cache/juswa.jpg"))
-		.on("close", () => callback());
+  request(encodeURI(imgURL)).pipe(fs.createWriteStream(imgPath)).on("close", () => {
+    api.sendMessage(
+      {
+        body: msg,
+        attachment: fs.createReadStream(imgPath),
+      },
+      event.threadID,
+      () => fs.unlinkSync(imgPath)
+    );
+  });
 };
