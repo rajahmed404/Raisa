@@ -1,4 +1,4 @@
-const axios = require('axios');
+ const axios = require('axios');
 
 const baseApiUrl = async () => {
  const base = await axios.get(`https://raw.githubusercontent.com/Mostakim0978/D1PT0/refs/heads/main/baseApiUrl.json`);
@@ -6,7 +6,7 @@ const baseApiUrl = async () => {
 };
 
 module.exports.config = {
- name: "জুই",
+ name: "বাবু",
  version: "6.9.9",
  credits: "dipto",
  cooldowns: 0,
@@ -156,7 +156,7 @@ try{
 module.exports.handleEvent = async function ({ api, event }) {
 try{
  const body = event.body ? event.body.toLowerCase() : ""
- if(body.startsWith("baby") || body.startsWith("Jui") || body.startsWith("জুই")){
+ if(body.startsWith("baby") || body.startsWith("bby") || body.startsWith(""))বাবু{
  const arr = body.replace(/^\S+\s*/, "")
  if(!arr) {
  await api.sendMessage("ব্ঁলো্ঁ বা্ঁবু্ঁ আ্ঁমি্ঁ শু্ঁন্ঁতা্‌ছি্ঁ তো্ঁ ", event.threadID, (error, info) => {
