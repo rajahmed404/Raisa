@@ -1,5 +1,5 @@
 module.exports.config = {
- name: "antiout",
+ name: "leave",
  eventType: ["log:unsubscribe"],
  version: "0.0.1",
  credits: "Joy-Ahmed",
@@ -13,11 +13,11 @@ module.exports.run = async({ event, api, Threads, Users }) => {
  const name = global.data.userName.get(event.logMessageData.leftParticipantFbId) || await Users.getNameUser(event.logMessageData.leftParticipantFbId);
  const type = (event.author == event.logMessageData.leftParticipantFbId) ? "self-separation" : "being kicked by the administrator";
  if (type == "self-separation") {
-  api.addUserToGroup(event.logMessageData.leftParticipantFbId, event.threadID, (error, info) => {
-   if (error) {
-    api.sendMessage(`কিরে😂 ${name} তোর এতো বড়ো সাহস😈 আমি জুই
+	api.addUserToGroup(event.logMessageData.leftParticipantFbId, event.threadID, (error, info) => {
+	 if (error) {
+		api.sendMessage(`কিরে😂 ${name} তোর এতো বড়ো সাহস😈 আমি রাজ
  বট থাকতে লিভ নেস😂 :( `, event.threadID)
-   } else api.sendMessage(`কিরে😈 ${name} কোথায় পালাস পালানোর আগে বস মিমকে বলে যা 🤣😂`, event.threadID);
-  })
+	 } else api.sendMessage(`কিরে😈 ${name} কোথায় পালাস আমি রাজ বট থাকতে পালাতে পারবি না🤣😂`, event.threadID);
+	})
  }
-                            }
+}
