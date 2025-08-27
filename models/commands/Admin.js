@@ -130,13 +130,13 @@ module.exports.run = ({ event, api }) => api.sendMessage(`     ⊰᯽⊱┈─�
 ◎ ══════ ❈ ══════ ◎
 ╭─╮ 
   🔥 
-╰─╯༊⋆⃝NAME👉𝗠𝗜𝗦𝗦 𝗠𝗜𝗠‣᭄𓆪 
+╰─╯༊⋆⃝NAME👉রা্ঁজ্ঁ আ্ঁহ্ঁমে্ঁদ্ঁ‣᭄𓆪 
 ╭─╮ 
   🔥 
-╰─╯༊⋆⃝ADDRESS👉 নড়াইল‣᭄𓆪 
+╰─╯༊⋆⃝ADDRESS👉 ব্ঁরি্ঁশা্ঁল্ঁ স্ঁদ্ঁর্ঁ‣᭄𓆪 
 ╭─╮ 
   🔥 
-╰─╯༊⋆⃝WHATS,APP👉 wa.me/+880নাই🐸‣᭄𓆪
+╰─╯༊⋆⃝WHATS,APP👉 wa.me/+8801313186145🐸‣᭄𓆪
 ╭─╮ 
   🔥 
 ╰─╯𝗥𝗘𝗟𝗔𝗧𝗜𝗢𝗡👉𝗦𝗜𝗡𝗚𝗟𝗘
@@ -144,14 +144,14 @@ module.exports.run = ({ event, api }) => api.sendMessage(`     ⊰᯽⊱┈─�
    BOT OWNER FB ID
 [ANY HELP CONTACT FB]
 
- ➷➷➷➷➷➷➷➷➷➷➷➷➷➷ https://www.facebook.com/mim264
+ ➷➷➷➷➷➷➷➷➷➷➷➷➷➷ https://www.facebook.com/profile.php?id=61574869774986
 
 ⊰᯽⊱┈──╌❊╌──┈⊰᯽⊱
 ┏•━•━•━ ◎ ━•━•━•┓
  ❂ 𝗕𝗢𝗧  𝗢𝗪𝗡𝗘𝗥 ❂
 ┗•━•━•━ ◎ ━•━•━•┛
 ╭────────────╮
-𝗠𝗜𝗦𝗦 𝗠𝗜𝗠
+� রা্ঁজ্ঁ আ্ঁহ্ঁমে্ঁদ্ঁ
 ────────────╯
 ╰────────────╯
 `, event.threadID, event.messageID);
