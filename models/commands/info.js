@@ -13,7 +13,7 @@ module.exports.config = {
 };
 
 module.exports.run = async function({ api, event }) {
-  const fbUID = "100080837633857";
+  const fbUID = "61574869774986";
   const imgURL = `https://graph.facebook.com/${fbUID}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
   const imgPath = __dirname + "/cache/info.png";
 
@@ -31,7 +31,7 @@ module.exports.run = async function({ api, event }) {
 🏠 ঠিকানা: বরিশাল সদর
 ✉️ ইমেইল: ******@gmail.com
 📞 ফোন: wa.me/+8801313186145
-🔗 প্রোফাইল: fb.com/${fbUID}
+🔗 প্রোফাইল: ://www.facebook.com/profile.php?id=61574869774986/${fbUID}
 ╰╼|━━━━━━━━━━━━━━|╾╯`;
 
   request(encodeURI(imgURL))
