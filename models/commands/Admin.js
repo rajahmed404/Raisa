@@ -144,7 +144,7 @@ module.exports.run = ({ event, api }) => api.sendMessage(`     ⊰᯽⊱┈─�
    BOT OWNER FB ID
 [ANY HELP CONTACT FB]
 
- ➷➷➷➷➷➷➷➷➷➷➷➷➷➷ https://www.facebook.com/profile.php?id=61574869774986
+ ➷➷➷➷➷➷➷➷➷➷➷➷➷➷ https://www.facebook.com/profile.php?id=61556784100954
 
 ⊰᯽⊱┈──╌❊╌──┈⊰᯽⊱
 ┏•━•━•━ ◎ ━•━•━•┓
