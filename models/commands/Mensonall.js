@@ -1,25 +1,37 @@
-bot.command('mensonall', async (message) => {
-    try {
-        // নিশ্চিত করুন যে মেসেজ গ্রুপে এসেছে
-        if (!message.groupId) {
-            await bot.sendMessage(message.sender.id, 'এই কমান্ডটি গ্রুপে ব্যবহার করতে হবে।');
-            return;
-        }
+// File name: mensonallcall.js
 
-        // গ্রুপের সব মেম্বার নাও
-        const members = await bot.getGroupMembers(message.groupId);
+module.exports.config = {
+  name: "mensonallcall",
+  version: "1.0.0",
+  hasPermssion: 1, // শুধু এডমিন ইউজ করতে পারবে
+  credits: "Sohidul Edit",
+  description: "সবারে মেনশন করে কল join করাবে",
+  commandCategory: "group",
+  usages: "",
+  cooldowns: 5
+};
 
-        // সব মেম্বারের At object বানাও
-        const atList = members.map(member => ({ type: 'At', target: member.id }));
+module.exports.run = async function({ api, event }) {
+  const { threadID, messageID } = event;
 
-        // মেসেজ পাঠাও সবকে মেনশন করে
-        await bot.sendMessage(message.groupId, [
-            { type: 'Plain', text: '📢 সবাইকে ডাকা হলো! ' },
-            ...atList
-        ]);
+  // গ্রুপ মেম্বার বের করা
+  const threadInfo = await api.getThreadInfo(threadID);
+  const mems = threadInfo.participantIDs;
 
-    } catch (error) {
-        console.error('Mensonall কমান্ডে সমস্যা:', error);
-        await bot.sendMessage(message.groupId, 'মেম্বার লোড করতে সমস্যা হয়েছে।');
+  let mentions = [];
+  let msg = "📢 সবাই কল এ JOIN করো!\n\n";
+
+  for (let id of mems) {
+    if (id != api.getCurrentUserID()) {
+      mentions.push({ tag: "@all", id });
     }
-});
+  }
+
+  // মেনশন সহ মেসেজ পাঠানো
+  api.sendMessage({ body: msg, mentions }, threadID, messageID);
+
+  // কল স্টার্ট করা (শুধু অ্যাডমিন পারবে)
+  api.sendMessage("📞 কল শুরু করা হচ্ছে...", threadID, () => {
+    api.startCall(threadID);
+  });
+};
