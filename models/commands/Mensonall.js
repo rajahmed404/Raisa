@@ -1,29 +1,32 @@
-const { segment } = require("oicq");
-
 module.exports.config = {
-  name: "callall",
+  name: "callonebyone",
   version: "1.0.0",
   permission: 0,
   prefix: true,
   credits: "Sohidul",
-  description: "সবারে mention করে কল এ ডাকবে",
+  description: "এক এক করে সবাইকে mention করে কল এ ডাকবে",
   category: "group",
-  usages: "callall",
-  cooldowns: 5
+  usages: "callonebyone",
+  cooldowns: 10
 };
 
 module.exports.run = async function ({ api, event }) {
-  if (event.isGroup) {
-    let msg = "📢 সবাই কল এ আসো!";
-    let mentions = [];
+  if (!event.isGroup) {
+    return api.sendMessage("⚠️ এই কমান্ড শুধু গ্রুপে ব্যবহার করা যাবে!", event.threadID);
+  }
 
-    // গ্রুপের সব মেম্বার UID নিয়ে mention বানানো
-    for (let mem of Object.values(event.participantIds)) {
-      mentions.push({ tag: "@all", id: mem });
+  let all = event.participantIDs; // গ্রুপের সব UID
+  for (let uid of all) {
+    try {
+      await api.sendMessage({
+        body: "📢 কল এ আসো!",
+        mentions: [{ tag: "@" + uid, id: uid }]
+      }, event.threadID);
+
+      await new Promise(resolve => setTimeout(resolve, 1200)); 
+      // ১.২ সেকেন্ড delay, না হলে spam হয়ে যাবে
+    } catch (e) {
+      console.log("❌ Error sending to UID:", uid, e);
     }
-
-    return api.sendMessage({ body: msg, mentions: mentions }, event.threadID);
-  } else {
-    return api.sendMessage("⚠️ এই কমান্ড শুধু গ্রুপে কাজ করবে!", event.threadID);
   }
 };
