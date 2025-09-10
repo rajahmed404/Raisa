@@ -1,37 +1,29 @@
-// File name: mensonallcall.js
+const { segment } = require("oicq");
 
 module.exports.config = {
-  name: "mensonallcall",
+  name: "callall",
   version: "1.0.0",
-  hasPermssion: 1, // শুধু এডমিন ইউজ করতে পারবে
-  credits: "Sohidul Edit",
-  description: "সবারে মেনশন করে কল join করাবে",
-  commandCategory: "group",
-  usages: "",
+  permission: 0,
+  prefix: true,
+  credits: "Sohidul",
+  description: "সবারে mention করে কল এ ডাকবে",
+  category: "group",
+  usages: "callall",
   cooldowns: 5
 };
 
-module.exports.run = async function({ api, event }) {
-  const { threadID, messageID } = event;
+module.exports.run = async function ({ api, event }) {
+  if (event.isGroup) {
+    let msg = "📢 সবাই কল এ আসো!";
+    let mentions = [];
 
-  // গ্রুপ মেম্বার বের করা
-  const threadInfo = await api.getThreadInfo(threadID);
-  const mems = threadInfo.participantIDs;
-
-  let mentions = [];
-  let msg = "📢 সবাই কল এ JOIN করো!\n\n";
-
-  for (let id of mems) {
-    if (id != api.getCurrentUserID()) {
-      mentions.push({ tag: "@all", id });
+    // গ্রুপের সব মেম্বার UID নিয়ে mention বানানো
+    for (let mem of Object.values(event.participantIds)) {
+      mentions.push({ tag: "@all", id: mem });
     }
+
+    return api.sendMessage({ body: msg, mentions: mentions }, event.threadID);
+  } else {
+    return api.sendMessage("⚠️ এই কমান্ড শুধু গ্রুপে কাজ করবে!", event.threadID);
   }
-
-  // মেনশন সহ মেসেজ পাঠানো
-  api.sendMessage({ body: msg, mentions }, threadID, messageID);
-
-  // কল স্টার্ট করা (শুধু অ্যাডমিন পারবে)
-  api.sendMessage("📞 কল শুরু করা হচ্ছে...", threadID, () => {
-    api.startCall(threadID);
-  });
 };
