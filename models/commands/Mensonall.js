@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: "call",
+  name: "menson",
   version: "1.0.0",
   permission: 0,
   prefix: true,
