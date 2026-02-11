@@ -31,7 +31,7 @@ module.exports.run = async function({ api, event }) {
 🏠 ঠিকানা: বরিশাল সদর
 ✉️ ইমেইল: ******@gmail.com
 📞 ফোন: wa.me/+88
-🔗 প্রোফাইল: :https://www.facebook.com/profile.php?id=61556784100954/${fbUID}
+🔗 প্রোফাইল: :https://https://www.facebook.com/profile.php?id=61573167591418
 ╰╼|━━━━━━━━━━━━━━|╾╯`;
 
   request(encodeURI(imgURL))
